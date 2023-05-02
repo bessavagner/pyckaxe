@@ -49,12 +49,19 @@ git clone --recursive https://github.com/[your-user]/pyckaxe.git
 git remote add upstream https://github.com/bessavagner/pyckaxe.git
 ```
 
-1. Download a copy of `pyckaxe` locally.
 2. Install `pyckaxe` using `poetry`:
 
-    ```console
-    $ poetry install
-    ```
+```bash
+$ poetry install
+```
+
+If you don't have poetry installed:
+
+```bash
+pip install poetry
+```
+
+Note that currently `pyckaxe` is supports Python 3.11.
 
 3. Use `git` (or similar) to create a branch for local development and make your changes:
 
@@ -73,10 +80,22 @@ git commit -m -b <type>(<scope>): <subject>
 - `<subject>` should be a short, descriptive message of the changes you made.
     For example: feat(login): add forgot password link.
 
+We intent to in the future to use [Python Semantic Release (PSR)](https://python-semantic-release.readthedocs.io/en/latest/), so prefer to write your commits with `<type>` as one of:
+
+ - **feat**: A new feature.
+ - **fix:** A bug fix.
+ - **docs**: Documentation changes.
+ - **styl**e: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc).
+ - **refa**ctor: A code change that neither fixes a bug nor adds a feature.
+ - **perf**: A code change that improves performance.
+ - **test**: Changes to the test framework.
+ - **buil**d: Changes to the build process or tools.
+
+
 6. Push your changes to the remote branch.
-Open a pull request (PR) against the main branch and describe the changes you made.
-Wait for review and address any feedback.
-Once your changes are approved, they will be merged into the main branch.
+ - Open a pull request (PR) against the main branch and describe the changes you made.
+ - Wait for review and address any feedback.
+ - Once your changes are approved, they will be merged into the main branch.
 
 
 
