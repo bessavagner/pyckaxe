@@ -5,6 +5,11 @@
 """
 import logging
 from urllib.parse import urljoin
+from logging.config import dictConfig
+
+from pyckaxe import CONFIG_LOG
+
+dictConfig(CONFIG_LOG)
 
 logger = logging.getLogger('standard')
 
@@ -71,7 +76,7 @@ class BaseInspector:
                 if __class__.__name__ == 'BaseInspector':
 
                     logger.warning(
-                        'Using an instance of %s. Returning []',
+                        'Using an instance of %s. Returning empty list',
                         __class__.__name__
                     )
 
