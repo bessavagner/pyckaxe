@@ -1,6 +1,30 @@
 # pyckaxe
 
-Python package to speed up web scraper development
+Python package to speed up web scraper development.
+
+Currently this project follows this pattern
+
+```
+|── .env/
+|── README.md
+├── pyproject.toml
+├── src/
+|   |── project_name/
+│   |    ├── __init__.py
+│   |    ├── __main__.py
+│   |    |── base.py
+│   |    |── core.py
+│   |    |── data.py
+│   |    └── utils.py
+|   |── app.py
+|   |── cli.py
+|   |── gui.py
+|   └── settings.py
+└── tests/
+    └── __init__.py
+```
+
+Here, `app.py`, `cli.py` and `gui.py` are just for local testing, experimenting and future development, and should not be suggested any changes.
 
 ## Installation
 
@@ -10,7 +34,7 @@ $ pip install pyckaxe
 
 ## Usage
 
-- TODO
+- <spam style='color: red;'>TODO</spam>
 
 ## Contributing
 
