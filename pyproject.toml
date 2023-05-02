@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "pyckaxe"
+version = "0.1.0"
+description = "python package to speed up web scraper development"
+authors = ["Vagner Bessa"]
+license = "None"
+readme = "README.md"
+packages = [{include = "pyckaxe", from = "src"}]
+include = [
+	{path = "src/app.py"},
+	{path = "src/cli.py"},
+	{path = "src/gui.py"},
+	{path = "src/settings.py"}
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+[tool.poetry.scripts]
+pyckaxe = "pyckaxe.__main__:main"
