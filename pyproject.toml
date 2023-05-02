@@ -1,10 +1,18 @@
 [tool.poetry]
 name = "pyckaxe"
 version = "0.1.0"
-description = "python package to speed up web scraper development"
-authors = ["Vagner Bessa"]
-license = "None"
+description = "Python package to speed up web scraper development"
+authors = ["Vagner Bessa <bessavagner@gmail.com>"]
+license = "Apache-2.0"
 readme = "README.md"
+repository = "https://github.com/bessavagner/pyckaxe.git"
+keywords = ["scraping", "requests", "webdriver"]
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+	"Programming Language :: Python :: 3.11",
+	"Framework :: aiohttp"
+]
 packages = [{include = "pyckaxe", from = "src"}]
 include = [
 	{path = "src/app.py"},
