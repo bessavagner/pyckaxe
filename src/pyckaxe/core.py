@@ -23,6 +23,31 @@ report = logging.getLogger('report')
 
 
 class AsyncInspector(BaseInspector):
+    """
+    An asynchronous web page inspector.
+
+    Attributes:
+    -----------
+    async_method : List[str]
+        A list of async methods available for the AsyncInspector object.
+
+    Methods:
+    --------
+    __init__(self, url: str, session: aiohttp.ClientSession, **kwargs):
+        Initializes a new AsyncInspector object.
+
+    _content(self, *args, **kwargs):
+        Asynchronously retrieves and returns the content of the web page.
+
+    _json(self, *args, **kwargs):
+        Asynchronously retrieves and returns the JSON data of the web page.
+
+    _save_html(self, *args, directory: str=None, **kwargs):
+        Asynchronously saves the HTML of the web page to a file.
+
+    load(self, *args, method='content', **kwargs):
+        Asynchronously loads the content or HTML of the web page based on the specified method.
+    """
     async_method = [
         'content',
         'save html',
@@ -32,8 +57,6 @@ class AsyncInspector(BaseInspector):
                  **kwargs):
         super().__init__(url, **kwargs)
         self.session = session
-        self.page = None
-        self._soup = None
 
     async def _content(self, *args, **kwargs):
         content = await get_content(self.url, self.session, *args, **kwargs)
