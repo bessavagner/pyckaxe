@@ -27,6 +27,7 @@ aiohttp = "^3.8.4"
 aiofiles = "^23.1.0"
 beautifulsoup4 = "^4.12.2"
 tqdm = "^4.65.0"
+requests = "^2.29.0"
 
 [tool.poetry.dev-dependencies]
 

@@ -8,6 +8,7 @@ import logging
 import asyncio
 from pathlib import Path
 
+import requests
 import aiohttp
 import aiofiles
 from bs4 import BeautifulSoup
@@ -72,7 +73,7 @@ class AsyncInspector(BaseInspector):
 class Inspector(BaseInspector):
     def __init__(self, url: str=None, **kwargs):
         super().__init__(url)
-        self.session = requests_html.HTMLSession(**kwargs)
+        self.session = requests.Session(**kwargs)
         self.page = None
         if isinstance(url, str):
             self.url = url
