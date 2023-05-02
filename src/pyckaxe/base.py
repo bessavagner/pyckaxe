@@ -3,7 +3,10 @@
 
     This module provides package's base logic, factories and abstractions
 """
+import logging
 from urllib.parse import urljoin
+
+logger = logging.getLogger('standard')
 
 class BaseInspector:
     def __init__(self, url: str):
@@ -16,7 +19,15 @@ class BaseInspector:
             raise ValueError(f"Url must be string, {type(url)} was given")
 
     def find_all(self, *args, **kwargs):
-        return self._soup.find_all(*args, **kwargs)
+        try:
+            return self._soup.find_all(*args, **kwargs)
+        except AttributeError:
+            if __class__.__name__ == 'BaseInspector':
+                logger.warning(
+                    'Using an instance of %s. Returning None',
+                    __class__.__name__
+                )
+                return None
 
     def anchors(self, ):
         return self.find_all('a')
