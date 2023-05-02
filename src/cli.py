@@ -9,9 +9,11 @@
 import logging
 
 import click
+import aiohttp
+import requests
 
 from pyckaxe import HEADER
-from app import MyApp
+from app import WebInspect
 
 logger_client = logging.getLogger('client')
 
@@ -22,14 +24,22 @@ class CLI:
 
     def start(self, arg=None):
         click.echo(HEADER)
-        self.app = MyApp(arg)
+        self.app = WebInspect(arg)
         self.app.run()
+
+    def finish(self,):
+        self.app.close()
 
 @click.command()
 @click.option('--arg',
               default=None,
               required=False,
-              help='Argument to MyApp')
-def start_program(arg=None):
+              help='Argument to WebInspect')
+def start_program(arg: str=None):
     program = CLI()
-    program.start(arg)
+    if arg is None:
+        session = aiohttp.ClientSession()
+    else:
+        session = requests.Session()
+    program.start(session)
+    program.finish()

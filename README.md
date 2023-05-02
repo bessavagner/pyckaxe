@@ -1,6 +1,6 @@
 # pyckaxe
 
-python package to speed up web scraper development
+Python package to speed up web scraper development
 
 ## Installation
 

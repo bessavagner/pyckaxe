@@ -1,3 +1,4 @@
 # Enviroment 
 .env/
 desktop/
+__pycache__/

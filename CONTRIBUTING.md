@@ -42,6 +42,13 @@ If you are proposing a feature:
 
 Ready to contribute? Here's how to set up `pyckaxe` for local development.
 
+1. Fork the repository, clone and add remote:
+   
+```bash
+git clone --recursive https://github.com/[your-user]/pyckaxe.git
+git remote add upstream https://github.com/bessavagner/pyckaxe.git
+```
+
 1. Download a copy of `pyckaxe` locally.
 2. Install `pyckaxe` using `poetry`:
 
@@ -51,13 +58,27 @@ Ready to contribute? Here's how to set up `pyckaxe` for local development.
 
 3. Use `git` (or similar) to create a branch for local development and make your changes:
 
-    ```console
-    $ git checkout -b name-of-your-bugfix-or-feature
-    ```
-
+```bash
+git checkout -b branch_name
+```
 4. When you're done making changes, check that your changes conform to any code formatting requirements and pass any tests.
+   
+5. Add and commit your changes. Prefer using [Angular commit style](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#commit-message-format):
 
-5. Commit your changes and open a pull request.
+```bash
+git commit -m -b <type>(<scope>): <subject>
+```
+- `<type>` should be one of the following: feat, fix, docs, style, refactor, test, or chore.
+- `<scope>` is optional and should be a brief description of the affected component or module.
+- `<subject>` should be a short, descriptive message of the changes you made.
+    For example: feat(login): add forgot password link.
+
+6. Push your changes to the remote branch.
+Open a pull request (PR) against the main branch and describe the changes you made.
+Wait for review and address any feedback.
+Once your changes are approved, they will be merged into the main branch.
+
+
 
 ## Pull Request Guidelines
 

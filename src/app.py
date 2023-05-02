@@ -6,24 +6,29 @@
     modules.
 """
 
+import asyncio
 import logging
 from logging.config import dictConfig
 
+import aiohttp
+import requests
+from tqdm import tqdm
+
 from pyckaxe import CONFIG_LOG
-from pyckaxe import NameYourClass
+from pyckaxe import AsyncInspector
 
 dictConfig(CONFIG_LOG)
 
 logger = logging.getLogger('client')
 report = logging.getLogger('report')
 
-class MyApp:
-    def __init__(self, *args, **kwargs):
-        self.attribute = NameYourClass(*args, **kwargs)
-    def show(self,):
-        print(self.attribute.action)
-    def run(self,):
-        logger.info('Running application')
-        if self.attribute.action is None:
-            logger.warning('No action specified')
-        return self.attribute.action
+class WebInspect:
+    def __init__(self, session: aiohttp.ClientSession|requests.Session):
+        self.session = session
+
+    def run(self, ):
+        return self.session
+
+    def close(self,):
+        self.session.close()
+        del self.session

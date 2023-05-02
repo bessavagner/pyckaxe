@@ -4,7 +4,6 @@
 """
 
 from importlib import metadata
-from pathlib import Path
 
 
 package = metadata.metadata('pyckaxe')
@@ -17,14 +16,17 @@ summary = package['summary']
 
 TITLE = name
 DELIMITER = len(TITLE)*"="
-HEADER = f"""
-{DELIMITER}
-{TITLE}
-Version: {version}
-Description: {summary }
-Authors: {author}
-{DELIMITER}
-"""
+HEADER = (
+    f"{DELIMITER}"
+    f"{TITLE}"
+    f"Version: {version}"
+    f"Description: {summary }"
+    f"Authors: {author}"
+    f"{DELIMITER}"
+)
+
+USER_AGENT = ('Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) '
+              'Gecko/20100101 Firefox/112.0')
 
 CONFIG_LOG = {
     "version": 1,
