@@ -4,6 +4,7 @@
     This module provides package's base logic, factories and abstractions
 """
 import logging
+from pathlib import Path
 from urllib.parse import urljoin
 from logging.config import dictConfig
 
@@ -70,6 +71,62 @@ class BaseInspector:
                         )
 
                         return []
+
+
+class BaseFileManager:
+    def __init__(self, folder_path: str):
+        self.folder_path = Path(folder_path)
+        self.file_state = {}
+        try:
+            self.folder_path.mkdir(parents=True, exist_ok=True)
+        except OSError as err:
+            raise ValueError(f"Invalid folder path: {folder_path}") from err
+
+    def _file_path(self, file_name):
+        return self.folder_path / file_name
+
+    def _read_file(self, file_name, encoding="utf-8", **kwargs):
+        with open(self._file_path(file_name), "r", encoding=encoding, **kwargs) as f:
+            return f.read()
+
+    def _write_file(self, file_name, file_contents):
+        with open(self._file_path(file_name), "w") as f:
+            f.write(file_contents)
+
+    def save_file(self, file_name, file_contents):
+        self._write_file(file_name, file_contents)
+        self.file_state.setdefault(file_name, []).append("saved")
+
+    def load_file(self, file_name):
+        try:
+            file_contents = self._read_file(file_name)
+            self.file_state.setdefault(file_name, []).append("loaded")
+            return file_contents
+        except FileNotFoundError:
+            logger.error("File not found: %s. Returning None", file_name)
+            return None
+
+    def get_file_state(self, file_name):
+        return self.file_state.get(file_name, ["unknown"])[-1]
+
+    def list_files(self):
+        return [f.name for f in self.folder_path.glob("*") if f.is_file()]
+
+    def delete_file(self, file_name):
+        file_path = self._file_path(file_name)
+        if file_path.exists():
+            file_path.unlink()
+            self.file_state.setdefault(file_name, []).append("deleted")
+        else:
+            raise ValueError(f"File not found: {file_name}")
+
+    def __str__(self):
+        files = self.list_files()
+        file_info = []
+        for file in files:
+            file_state = self.get_file_state(file)
+            file_info.append(f"{file}: {file_state}")
+        return "\n".join(file_info)
 
 
 class BaseHandleData:
