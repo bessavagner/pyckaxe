@@ -40,7 +40,7 @@ class AsyncInspector(BaseInspector):
         Asynchronously retrieves and returns the content of the web page.
 
     _json(self, *args, **kwargs):
-        Asynchronously retrieves and returns the JSON data of the web page.
+        Asynchronously retrieves and returns the JSON data from requests.
 
     _save_html(self, *args, directory: str=None, **kwargs):
         Asynchronously saves the HTML of the web page to a file.
@@ -48,10 +48,11 @@ class AsyncInspector(BaseInspector):
     load(self, *args, method='content', **kwargs):
         Asynchronously loads the content or HTML of the web page based on the specified method.
     """
-    async_method = [
-        'content',
-        'save html',
-    ]
+    SUPPORTED_METHODS = {
+        'content': '_content',
+        'save html': '_save_html',
+        'json': '_json'
+    }
     def __init__(self, url: str,
                  session: aiohttp.ClientSession,
                  **kwargs):
@@ -84,13 +85,13 @@ class AsyncInspector(BaseInspector):
         async with aiofiles.open(filename, 'w', encoding='utf-8') as afile:
             await afile.write(self._soup.prettify())
 
-    def load(self, *args, method='content', **kwargs):
-        if method == self.async_method[0]:
-            return asyncio.create_task(self._content(*args, **kwargs))
-        elif method == self.async_method[1]:
-            return asyncio.create_task(self._save_html(*args, **kwargs))
-        else:
-            raise ValueError(f"'method' must be one of {self.async_method}")
+    async def load(self, *args, method='content', **kwargs):
+        if method not in self.SUPPORTED_METHODS:
+            raise ValueError(f"'method' must be one of {list(self.SUPPORTED_METHODS.keys())}")
+
+        method_name = self.SUPPORTED_METHODS[method]
+        coroutine = getattr(self, method_name)
+        return asyncio.create_task(coroutine(*args, **kwargs))
 
 
 class Inspector(BaseInspector):
